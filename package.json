@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watchAll",
+    "test": "jest",
     "start": "node index.js",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.js' --write",
     "prettier-watch": "onchange 'src/**/*.ts' -- prettier --write {{changed}}"
@@ -19,6 +19,7 @@
     "mongoose",
     "api"
   ],
+  "type": "module",
   "author": "Janos Perge",
   "license": "ISC",
   "bugs": {
@@ -33,6 +34,8 @@
     "nodemon": "^3.0.1"
   },
   "devDependencies": {
+    "@types/jest": "^27.4.0",
+    "@types/node": "^17.0.21",
     "eslint": "^8.51.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-config-standard": "^17.1.0",
@@ -40,6 +43,11 @@
     "eslint-plugin-n": "^16.1.0",
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-promise": "^6.1.1",
-    "onchange": "^7.1.0"
+    "jest": "^27.5.1",
+    "mongodb-memory-server": "^9.0.1",
+    "onchange": "^7.1.0",
+    "ts-jest": "^27.1.3",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.2"
   }
 }

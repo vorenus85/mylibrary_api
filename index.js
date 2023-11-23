@@ -1,38 +1,15 @@
-const express = require('express');
-const { ApolloServer, gql } = require('apollo-server-express');
-require('./config');
+import express from 'express';
+import { ApolloServer, gql }  from 'apollo-server-express';
+import mongoose  from 'mongoose';
+import typeDefs from './models/typeDefs.js';
+import resolvers from './resolvers/index.js';
 
-const { User } = require('./models');
+mongoose.Promise = global.Promise;
 
-const typeDefs = gql`
-    type User {
-        id: ID!
-        userName: String
-        email: String
-    }
-    type Query {
-        getUsers: [User]
-    }
-    type Mutation {
-        addUser(userName: String!, email: String!): User
-    }
-`;
+const url = 'mongodb://localhost:27017/mylibrary';
 
-const resolvers = {
-  Query: {
-    getUsers: async () => await User.find({}).exec()
-  },
-  Mutation: {
-    addUser: async (_, args) => {
-      try {
-        let response = await User.create(args);
-        return response;
-      } catch(e) {
-        return e.message;
-      }
-    }
-  }
-};
+mongoose.connect(url, { useNewUrlParser: true });
+mongoose.connection.once('open', () => console.log(`Connected to mongo at ${url}`));
 
 const server = new ApolloServer({ typeDefs, resolvers });
 const app = express();
